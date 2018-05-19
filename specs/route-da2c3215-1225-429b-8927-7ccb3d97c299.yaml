@@ -1,0 +1,13 @@
+apiVersion: fission.io/v1
+kind: HTTPTrigger
+metadata:
+  creationTimestamp: null
+  name: da2c3215-1225-429b-8927-7ccb3d97c299
+  namespace: default
+spec:
+  functionref:
+    name: calc-form
+    type: name
+  host: ""
+  method: GET
+  relativeurl: /form

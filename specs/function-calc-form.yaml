@@ -1,0 +1,51 @@
+include:
+- form.py
+kind: ArchiveUploadSpec
+name: form-py
+
+---
+apiVersion: fission.io/v1
+kind: Package
+metadata:
+  creationTimestamp: null
+  name: form-py-7jrk
+  namespace: default
+spec:
+  deployment:
+    checksum: {}
+    type: url
+    url: archive://form-py
+  environment:
+    name: python
+    namespace: default
+  source:
+    checksum: {}
+status:
+  buildstatus: none
+
+---
+apiVersion: fission.io/v1
+kind: Function
+metadata:
+  creationTimestamp: null
+  name: calc-form
+  namespace: default
+spec:
+  InvokeStrategy:
+    ExecutionStrategy:
+      ExecutorType: poolmgr
+      MaxScale: 1
+      MinScale: 0
+      TargetCPUPercent: 80
+    StrategyType: execution
+  configmaps: null
+  environment:
+    name: python
+    namespace: default
+  package:
+    functionName: form.main
+    packageref:
+      name: form-py-7jrk
+      namespace: default
+  resources: {}
+  secrets: null

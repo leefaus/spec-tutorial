@@ -1,0 +1,51 @@
+include:
+- calc.py
+kind: ArchiveUploadSpec
+name: calc-py
+
+---
+apiVersion: fission.io/v1
+kind: Package
+metadata:
+  creationTimestamp: null
+  name: calc-py-4jha
+  namespace: default
+spec:
+  deployment:
+    checksum: {}
+    type: url
+    url: archive://calc-py
+  environment:
+    name: python
+    namespace: default
+  source:
+    checksum: {}
+status:
+  buildstatus: none
+
+---
+apiVersion: fission.io/v1
+kind: Function
+metadata:
+  creationTimestamp: null
+  name: calc-eval
+  namespace: default
+spec:
+  InvokeStrategy:
+    ExecutionStrategy:
+      ExecutorType: poolmgr
+      MaxScale: 1
+      MinScale: 0
+      TargetCPUPercent: 80
+    StrategyType: execution
+  configmaps: null
+  environment:
+    name: python
+    namespace: default
+  package:
+    functionName: calc.main
+    packageref:
+      name: calc-py-4jha
+      namespace: default
+  resources: {}
+  secrets: null

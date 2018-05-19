@@ -1,0 +1,13 @@
+apiVersion: fission.io/v1
+kind: HTTPTrigger
+metadata:
+  creationTimestamp: null
+  name: 1675fb3e-a4f1-4314-94c1-26adda802bef
+  namespace: default
+spec:
+  functionref:
+    name: calc-eval
+    type: name
+  host: ""
+  method: GET
+  relativeurl: /calculate
